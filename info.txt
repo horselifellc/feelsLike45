@@ -1,0 +1,26 @@
+Pseudo Code
+
+Page load
+- display current temp in C (call weather API)
+- call up interactive map (https://leafletjs.com/)
+- Call Toronto OpenData API for cooling centres within that set distance of input:address lat and long 
+- Locate cooling centre lat/long on the map (https://www.toronto.ca/city-government/data-research-maps/open-data/open-data-catalogue/#d7f09371-1386-cc5c-69c9-79d4cf7f6faa)
+
+User enters input:address
+
+input:address translates into lat and long (open Geocode API?)
+
+Locate input:address lat and long on the interactive map
+
+Show location of those centres on the interactive map alongside your location 
+
+Center locations will show up as different display icons than your location 
+
+If available, print the notes associated with each object for opening hours OR display a contact number for calling if available
+
+Stretch goal?  
+Privacy lol 
+Measuring distance between two points?
+
+
+
