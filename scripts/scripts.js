@@ -1,9 +1,43 @@
 // namespacing our app; everything lives in the ccApp object
 const ccApp = {};
+ccApp.neighbourhoodArray =[
+	{
+		neighbourhood: `East York`,
+		lat: 43.691162,
+		lon: -79.328819
+	},
+	{
+		neighbourhood: `Etobicoke`,
+		lat: 43.643852,
+		lon: -79.565060
+	},
+	{
+		neighbourhood: `North York`,
+		lat: 43.767719,
+		lon: -79.412819
+	},
+	{
+		neighbourhood: `Scarborough`,
+		lat: 43.769409,
+		lon: -79.263742
+	},
+	{
+		neighbourhood: `Toronto Centre`,
+		lat: 43.646006,
+		lon: -79.389362
+	},
+	{
+		neighbourhood: `York`,
+		lat: 43.689440,
+		lon: -79.476442
+	}
+];
+
 ccApp.locationArray = [];
 ccApp.markerArray= [];
 // makes a new map object, centred on Metro Hall at zoom level 15
 ccApp.myMap = L.map('mapid').setView([43.646029, -79.389133], 15);
+
 
 // adds our map to the page
 ccApp.initMap = function() {
@@ -15,6 +49,12 @@ ccApp.initMap = function() {
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1IjoiZGVyZWttdXJyIiwiYSI6ImNqdnlsd3UyeTBoOTE0Ym1pcnh1b203M3IifQ.SxW-l7DgfF6E9VZGX8pnvg'
   }).addTo(ccApp.myMap);
+
+  //map initialized
+  // use latlngbounds to draw rectangular boundaries for each of the 6 boroughs
+  // stuff happesn to call data markers for cooling centeres
+  // if statement: if data marker lat/lon falls within lat/long boundaries for borough[i] then pass a property value of borough[i] to neighbourhood key 
+  //use neighbourhood key in drop down menu to center the map (user selection)
 
   // call our getData function to make our ajax call
   ccApp.getData();
@@ -87,7 +127,21 @@ ccApp.addLocationList = function() {
   });
 }
 
+//Selects from the neighbourhood array, eventually will connect to lat/long properties 
+// called in document ready 
+ccApp.neighbourhoodDropdown = function () {
+	ccApp.neighbourhoodArray.forEach((item)=>{
+		let dropDown = `<option value = ${item.neighbourhood}> ${item.neighbourhood}</option>`;
+		$(`#nabeSelector`).append(dropDown);
+		
+	})
+}
+
+	
 // once the document is ready, call the init functions to start the app
 $(document).ready(function () {
   ccApp.initMap();
+  ccApp.neighbourhoodDropdown();
 });
+
+// `<option value = ${item.neighbourhood}> ${item.neighbourhood}</option>`;
