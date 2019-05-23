@@ -23,7 +23,35 @@ ccApp.initMap = () => {
 };
 
 
+
+ccApp.getData = () => {
+  return $.ajax({
+    url: `http://app.toronto.ca/opendata//ac_locations/locations.json?v=1.00`,
+    dataType: 'json',
+    method: 'GET'
+  }).then((coolingCentres) => {
+    console.log(coolingCentres);
+
+    let newArray = coolingCentres.map((info)=>{
+      return info.locationName + " " + info.locationDesc + " " + info.address + " " + info.phone + " " + info.notes;  
+    });
+
+    console.log(newArray);
+
+  })
+}
+
+
+
+
+
+
+
+
+
+
 // once the document is ready, call the init functions to start the app
 $(document).ready(function () {
   ccApp.initMap();
+  ccApp.getData();
 });
