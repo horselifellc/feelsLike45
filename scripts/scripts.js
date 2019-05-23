@@ -30,10 +30,10 @@ ccApp.getData = function() {
     dataType: 'json',
     method: 'GET'
   }).then((coolingCentres) => {
-    console.log(coolingCentres);
+
 
     let newArray = coolingCentres.map((info)=>{
-      return info.locationName + " " + info.locationDesc + " " + info.address + " " + info.phone + " " + info.notes;  
+      return info.locationName + " " + info.locationDesc + " " + info.address + " " + info.phone + " " + info.notes + " " + info.lat + " " + info.lon;  
     });
 
     console.log(newArray);
