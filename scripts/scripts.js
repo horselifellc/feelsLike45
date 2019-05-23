@@ -2,7 +2,7 @@
 const ccApp = {};
 
 // adds our map to the page
-ccApp.initMap = () => {
+ccApp.initMap = function() {
   // makes a new map object, centred on Metro Hall at zoom level 15
   const mymap = L.map('mapid').setView([43.646029, -79.389133], 15);
 
@@ -24,7 +24,7 @@ ccApp.initMap = () => {
 
 
 
-ccApp.getData = () => {
+ccApp.getData = function() {
   return $.ajax({
     url: `http://app.toronto.ca/opendata//ac_locations/locations.json?v=1.00`,
     dataType: 'json',
