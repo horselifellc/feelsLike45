@@ -56,11 +56,11 @@ ccApp.initMap = function() {
     accessToken: 'pk.eyJ1IjoiZGVyZWttdXJyIiwiYSI6ImNqdnlsd3UyeTBoOTE0Ym1pcnh1b203M3IifQ.SxW-l7DgfF6E9VZGX8pnvg'
   }).addTo(ccApp.myMap);
 
-  //map initialized
-  // use latlngbounds to draw rectangular boundaries for each of the 6 boroughs
-  // stuff happesn to call data markers for cooling centeres
-  // if statement: if data marker lat/lon falls within lat/long boundaries for borough[i] then pass a property value of borough[i] to neighbourhood key 
-  //use neighbourhood key in drop down menu to center the map (user selection)
+	let torontoCorner1 = L.latLng(43.767719, -79.412819);
+	let torontoCorner2 = L.latLng(43.646006, -79.389362);
+	let bounds = L.latLngBounds(torontoCorner1, torontoCorner2);
+
+	 
 
   // call our getData function to make our ajax call
   ccApp.getData();
@@ -83,7 +83,8 @@ ccApp.getData = function() {
         locationPhone: info.phone,
         locationNotes: info.notes,
         locationLat: info.lat,
-        locationLon: info.lon
+		locationLon: info.lon,
+		locationID: ccApp.getLocationID(info)
       });
     });
     // now that we have data we can use it to add the markers to our map
@@ -91,6 +92,17 @@ ccApp.getData = function() {
     // and add the list of locations to the sidebar
     ccApp.addLocationList();
   });
+}
+
+ccApp.getLocationID = function(location) {
+	if(location.lat < 43.666911 && location.lat > 43.611111){ //toronto centre lat
+		if (location.lon > -79.491209 && location.lon < -79.280279) { //toronto centre lon
+			console.log(location.address);
+			return 4;
+		}
+	}   
+
+	// return neighbourhoodID;
 }
 
 // add a marker to the map for every location
@@ -106,10 +118,19 @@ ccApp.addMarkers = function() {
   ccApp.addPopup();
 }
 
-// bind the popup labels to every marker on the map
+// bind the popup labels to every marker on the map	
 ccApp.addPopup = function() {
 	for(let i = 0; i < ccApp.markerArray.length; i++){
-		const popupString = `<h5 class="popupName">${ccApp.locationArray[i].locationName}</h5> <h6 class="popupAddress">${ccApp.locationArray[i].locationAddress}</h6>`;
+		let popupString = 
+			`<h4 class="popupName">${ccApp.locationArray[i].locationName}</h4> 
+			<h5 class="popupAddress">${ccApp.locationArray[i].locationAddress}</h5>`;
+			if (ccApp.locationArray[i].locationPhone){
+				popupString += `<h5 class="popupPhone">${ccApp.locationArray[i].locationPhone}</h5>`
+			}
+			if (ccApp.locationArray[i].locationNotes) {
+				popupString += `<h5 class="popupNotes">${ccApp.locationArray[i].locationNotes}</h5>`
+			}
+			;
 		ccApp.markerArray[i].bindPopup(popupString);
 	}
 }
