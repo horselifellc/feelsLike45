@@ -2,15 +2,11 @@
 const ccApp = {};
 ccApp.locationArray = [];
 ccApp.markerArray= [];
+// makes a new map object, centred on Metro Hall at zoom level 15
+ccApp.myMap = L.map('mapid').setView([43.646029, -79.389133], 15);
 
 // adds our map to the page
 ccApp.initMap = function() {
-  // makes a new map object, centred on Metro Hall at zoom level 15
-  const mymap = L.map('mapid').setView([43.646029, -79.389133], 15);
-
-  // adds a new marker at the same lat & lon -- we'll want to move this to a separate function that adds all the markers
-  const marker = L.marker([43.646029, -79.389133]).addTo(mymap);
-
   // adds the tile layer to our map: the tiles are the visual appearance
   // we're using mapbox for the tiles, which requires an access token
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -18,26 +14,25 @@ ccApp.initMap = function() {
     maxZoom: 18,
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1IjoiZGVyZWttdXJyIiwiYSI6ImNqdnlsd3UyeTBoOTE0Ym1pcnh1b203M3IifQ.SxW-l7DgfF6E9VZGX8pnvg'
-  }).addTo(mymap);
+  }).addTo(ccApp.myMap);
 
   // adds a popup to the marker -- again, we'll want to add all the popups in a separate function
-  marker.bindPopup("<b>Metro Hall</b><br>55 John Street<br>Open 24 hours").openPopup();
+  // marker.bindPopup("<b>Metro Hall</b><br>55 John Street<br>Open 24 hours").openPopup();
 
-//   ccApp.addMarkers();
-  // ccApp.addMarkers = function () {
-// 	for (let i = 0; i < ccApp.locationArray.length; i++) {
-// 		let latitude = ccApp.locationArray[i].locationLat;
-// 		console.log(latitude);
-// 	}
-// // }
-// 	ccApp.locationArray.forEach((coordinate) => {
-// 		console.log(ccApp.locationArray.locationLat);
-// 	})
+  ccApp.getData();
 
 };
 
-
-
+ccApp.addMarkers = function() {
+  ccApp.locationArray.forEach((object) => {
+    ccApp.markerArray.push(L.marker([object.locationLat, object.locationLon]));
+  })
+  
+  ccApp.markerArray.forEach( (marker) => {
+    marker.addTo(ccApp.myMap);
+  });
+  console.log(ccApp.markerArray);
+}
 
 
 ccApp.getData = function() {
@@ -59,17 +54,14 @@ ccApp.getData = function() {
         locationLon: info.lon
       });
     });
-	  ccApp.locationArray.forEach((object) => {
-		  ccApp.markerArray.push(L.marker([object.locationLat, object.locationLon]));
-	  })
-	  console.log(ccApp.markerArray);
+    ccApp.addMarkers();
   });
-}
 
+}
 
 
 // once the document is ready, call the init functions to start the app
 $(document).ready(function () {
   ccApp.initMap();
-  ccApp.getData();
+  // ccApp.getData();
 });
