@@ -1,6 +1,7 @@
 // namespacing our app; everything lives in the ccApp object
 const ccApp = {};
 ccApp.locationArray = [];
+ccApp.markerArray= [];
 
 // adds our map to the page
 ccApp.initMap = function() {
@@ -21,7 +22,21 @@ ccApp.initMap = function() {
 
   // adds a popup to the marker -- again, we'll want to add all the popups in a separate function
   marker.bindPopup("<b>Metro Hall</b><br>55 John Street<br>Open 24 hours").openPopup();
+
+//   ccApp.addMarkers();
+  // ccApp.addMarkers = function () {
+// 	for (let i = 0; i < ccApp.locationArray.length; i++) {
+// 		let latitude = ccApp.locationArray[i].locationLat;
+// 		console.log(latitude);
+// 	}
+// // }
+// 	ccApp.locationArray.forEach((coordinate) => {
+// 		console.log(ccApp.locationArray.locationLat);
+// 	})
+
 };
+
+
 
 
 
@@ -44,10 +59,12 @@ ccApp.getData = function() {
         locationLon: info.lon
       });
     });
-    console.log(ccApp.locationArray);
+	  ccApp.locationArray.forEach((object) => {
+		  ccApp.markerArray.push(L.marker([object.locationLat, object.locationLon]));
+	  })
+	  console.log(ccApp.markerArray);
   });
 }
-
 
 
 
