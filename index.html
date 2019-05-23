@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cooling Centre Findre</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+  <header>
+    <h1>App title</h1>
+  </header>
+
+  <main>
+    <div class="wrapper">
+      <div id="mapid" class="mapArea">
+        <!-- Map gets inserted here -->
+      </div>
+  
+      <div id="contentArea" class="contentArea">
+        <select name="nabeSelector" id="nabeSelector">
+          <!-- Neighbourhood choices get populated here -->
+        </select>
+  
+        <ul id="nabeList" class="nabeList">
+          <!-- Results of neighbourhood selection go here, one per li -->
+        </ul>
+      </div>
+    </div>
+  </main>
+
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js'
+      integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous'></script>
+    
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+      crossorigin=""></script>
+
+    <script src="scripts/scripts.js"></script>
+
+</body>
+</html>
