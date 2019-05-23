@@ -1,5 +1,6 @@
 // namespacing our app; everything lives in the ccApp object
 const ccApp = {};
+ccApp.locationArray = [];
 
 // adds our map to the page
 ccApp.initMap = function() {
@@ -29,23 +30,23 @@ ccApp.getData = function() {
     url: `http://app.toronto.ca/opendata//ac_locations/locations.json?v=1.00`,
     dataType: 'json',
     method: 'GET'
-  }).then((coolingCentres) => {
+  }).then( (coolingCentres) => { 
+    // for each object in our dataset, we pull the relevant parts and make a new clean array
+    coolingCentres.forEach( (info) => { 
 
-
-    let newArray = coolingCentres.map((info)=>{
-      return info.locationName + " " + info.locationDesc + " " + info.address + " " + info.phone + " " + info.notes + " " + info.lat + " " + info.lon;  
+      // each index in the array in an object with the location information
+      ccApp.locationArray.push({
+        locationName: info.locationName + " " + info.locationDesc,
+        locationAddress: info.address,
+        locationPhone: info.phone,
+        locationNotes: info.notes,
+        locationLat: info.lat,
+        locationLon: info.lon
+      });
     });
-
-    console.log(newArray);
-
-  })
+    console.log(ccApp.locationArray);
+  });
 }
-
-
-
-
-
-
 
 
 
