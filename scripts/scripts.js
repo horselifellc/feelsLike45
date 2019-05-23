@@ -17,11 +17,17 @@ ccApp.initMap = function() {
   }).addTo(ccApp.myMap);
 
   // adds a popup to the marker -- again, we'll want to add all the popups in a separate function
-  // marker.bindPopup("<b>Metro Hall</b><br>55 John Street<br>Open 24 hours").openPopup();
-
   ccApp.getData();
 
 };
+
+
+ccApp.addPopup = function() {
+	for(let i = 0; i < ccApp.markerArray.length; i++){
+		const popupString = `<h5 class="popupName">${ccApp.locationArray[i].locationName}</h5> <h6 class="popupAddress">${ccApp.locationArray[i].locationAddress}</h6>`;
+		ccApp.markerArray[i].bindPopup(popupString);
+	}
+}
 
 ccApp.addMarkers = function() {
   ccApp.locationArray.forEach((object) => {
@@ -29,9 +35,9 @@ ccApp.addMarkers = function() {
   })
   
   ccApp.markerArray.forEach( (marker) => {
-    marker.addTo(ccApp.myMap);
-  });
-  console.log(ccApp.markerArray);
+	marker.addTo(ccApp.myMap);
+  }); 
+  ccApp.addPopup();
 }
 
 
