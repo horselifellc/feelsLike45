@@ -2,34 +2,40 @@
 const ccApp = {};
 ccApp.neighbourhoodArray =[
 	{
-		neighbourhood: `East York`,
+		neighbourhood: "East York",
 		lat: 43.691162,
-		lon: -79.328819
+    lon: -79.328819,
+    id: 0
 	},
 	{
-		neighbourhood: `Etobicoke`,
+		neighbourhood: "Etobicoke",
 		lat: 43.643852,
-		lon: -79.565060
+    lon: -79.565060,
+    id: 1
 	},
 	{
-		neighbourhood: `North York`,
+		neighbourhood: "North York",
 		lat: 43.767719,
-		lon: -79.412819
+    lon: -79.412819,
+    id: 2
 	},
 	{
-		neighbourhood: `Scarborough`,
+		neighbourhood: "Scarborough",
 		lat: 43.769409,
-		lon: -79.263742
+    lon: -79.263742,
+    id: 3
 	},
 	{
-		neighbourhood: `Toronto Centre`,
+		neighbourhood: "Toronto Centre",
 		lat: 43.646006,
-		lon: -79.389362
+    lon: -79.389362,
+    id: 4
 	},
 	{
-		neighbourhood: `York`,
+		neighbourhood: "York",
 		lat: 43.689440,
-		lon: -79.476442
+    lon: -79.476442,
+    id: 5
 	}
 ];
 
@@ -131,10 +137,32 @@ ccApp.addLocationList = function() {
 // called in document ready 
 ccApp.neighbourhoodDropdown = function () {
 	ccApp.neighbourhoodArray.forEach((item)=>{
-		let dropDown = `<option value = ${item.neighbourhood}> ${item.neighbourhood}</option>`;
-		$(`#nabeSelector`).append(dropDown);
-		
-	})
+    // each option in the menu has the name of the neighbourhood, and that neighbourhood's ID number (same as the index in its array)
+		let dropDown = `<option value = ${item.id}> ${item.neighbourhood}</option>`;
+    $(`#nabeSelector`).append(dropDown);
+  });
+  // now that the dropdown is made, call the event handler
+  ccApp.registerEvents();
+}
+
+// event handler for neighbourhood drop down
+ccApp.registerEvents = function () {
+  $('#nabeSelector').on('change', function () {
+    // grab the value of the menu that's changed
+    // the value is the index of that object in its array
+    let userSelection = $(this).val();
+    // pass that value to a function that actually changes the map view
+    ccApp.changeMapView(userSelection);
+  });
+}
+
+// function to change where the map is centred
+ccApp.changeMapView = function (mapFocus) {
+  // a new variable to hold the target latitude & longitude
+  // that lat & lon are found in our neighbourhood array, using the index passed in from registerEvents()
+  const latlng = L.latLng(ccApp.neighbourhoodArray[mapFocus].lat, ccApp.neighbourhoodArray[mapFocus].lon);
+  // call the setView method on our myMap object, using the latitude & longitude and zooming out a bit
+  ccApp.myMap.setView(latlng, 13);
 }
 
 	
