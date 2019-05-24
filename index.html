@@ -22,22 +22,27 @@
     <div class="tempDiv">
         <h2 class="currentTemp"></h2>
 
-        <div class="help-button">
-          <i class="far fa-question-circle help" aria-hidden="true"></i>
-          <label for="help" class="visuallyHidden">Click here for help</label>
-        </div>
     </div>
 
   </header>
 
   <main>
     <div class="wrapper">
-      <div id="mapid" class="mapArea">
-        <!-- Map gets inserted here -->
+     
+      <div class="mapArea">
+        <div id="mapid">
+          <!-- Map gets inserted here -->
+        </div>
+        <div class="help-button">
+          <i class="far fa-question-circle help" aria-hidden="true"></i>
+          <label for="help" class="visuallyHidden">Click here for help</label>
+        </div>
+       
+       
       </div>
-      
-      <div class="modal-open" id="modal1">
-        <div class="modal">
+    
+      <div class="modal-open visuallyHidden" id="modal1" >
+        <div class="modal" >
           <i class="fas fa-times close-modal" aria-hidden="true"></i>
           <h2 class="modal-title">Feels Like 45</h2>
           <h3 class="modal-info">Escape the heatwave!</h3>

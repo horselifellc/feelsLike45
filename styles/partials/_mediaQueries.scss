@@ -20,10 +20,51 @@
   }
 
   .mapArea {
-    height: 60vh;
+    height: 50vh;
   }
 
   .contentArea {
-    height: 30vh;
+    height: 40vh;
+    padding-top: 1rem;
   }
+}
+
+@media (max-width: 600px){
+  .headlineDiv {
+    flex-basis: 40%;
+  }
+
+  .tempDiv {
+    flex-basis: 60%;
+  }
+}
+
+@media (max-width: 480px){
+  header{
+    flex-direction: column;
+    height: 13vh;
+    h1{
+      font-size: 1.25rem;
+    }
+    h2{
+      font-size: 1rem;
+    }
+  }
+
+  .contentArea{
+    h3,
+    select{
+      font-size: 1.2rem;
+    }
+    label,
+    p{
+      font-size: 1.1rem;
+    }
+  }
+
+  select{
+    padding: .3rem;
+  }
+
+
 }
