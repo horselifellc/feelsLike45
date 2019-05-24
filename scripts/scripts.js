@@ -245,9 +245,20 @@ ccApp.changeMapView = function (mapFocus) {
 
 }
 
+ccApp.getWeather = function () {
+	return $.ajax({
+		url: `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f5578f7d9772b00d3c30f403b7a68de1/43.646006,-79.389362?units=si&exclude=hourly,daily,alerts,flags`,
+		dataType: `json`,
+		method: `GET`
+	}).then((weather) => {
+		console.log(weather.currently.apparentTemperature);
+	})
+}
+
 	
 // once the document is ready, call the init functions to start the app
 $(document).ready(function () {
   ccApp.initMap();
   ccApp.neighbourhoodDropdown();
+	ccApp.getWeather();
 });
