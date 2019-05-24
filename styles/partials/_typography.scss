@@ -5,7 +5,6 @@ body {
 }
 
 h1 {
-  flex-basis: 70%;
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
@@ -29,4 +28,21 @@ h3 {
 
 p{
   margin: 0;
+}
+
+a {
+  color: $torontoBlue;
+  &:hover,
+  &:focus,
+  &:active {
+    color: $accentBlue;
+  }
+}
+
+.currentTemp {
+  color: $accentBlue;
+  & span {
+    font-weight: 700;
+    white-space: nowrap;
+  }
 }

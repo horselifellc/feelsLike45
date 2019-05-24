@@ -1,0 +1,29 @@
+@media (max-width: 950px) {
+  .mapArea,
+  .headlineDiv {
+    flex-basis: 60%;
+  }
+
+  .contentArea,
+  .tempDiv {
+    flex-basis: 40%;
+  }
+}
+
+@media (max-width: 700px) {
+  .wrapper {
+    flex-wrap: wrap;
+  }
+  .mapArea,
+  .contentArea {
+    flex-basis: 100%;
+  }
+
+  .mapArea {
+    height: 60vh;
+  }
+
+  .contentArea {
+    height: 30vh;
+  }
+}

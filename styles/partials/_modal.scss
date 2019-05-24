@@ -5,7 +5,7 @@
 
 .modal-open{
     align-items: center;
-    background-color: rgba(64, 163, 255, 0.9);
+    background-color: $torontoBlueTranslucent;
     display: flex;
     justify-content: center;
     position: absolute; top: 0; right: 0; bottom: 0; left: 0;
@@ -22,4 +22,10 @@
 .close-modal{
     position: relative;
     top: 10px; right: -95%;
+    color: $torontoBlue;
+    &:hover,
+    &:focus,
+    &:active {
+        color: $accentBlue;
     }
+}

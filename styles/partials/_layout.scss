@@ -27,9 +27,41 @@ header {
   padding: 0 1.8rem;
 }
 
+.headlineDiv {
+  flex-basis: 70%;
+}
+
 .tempDiv {
   flex-basis: 30%;
+  display: flex;
+  justify-content: space-between;
   padding: 0 1.8rem;
+}
+
+.help {
+  color: $torontoBlue;
+  &:hover,
+  &:focus,
+  &:active {
+    color: $accentBlue;
+  }
+}
+
+label,
+select {
+  display: block;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  border-radius: 4px;
+  color: $torontoBlue;
+  background-color: $bgColor;
+  border: 1px solid $torontoBlue;
+  padding: .5rem;
 }
 
 .nabeList {
