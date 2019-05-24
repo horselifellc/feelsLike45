@@ -84,37 +84,62 @@ ccApp.getData = function() {
         locationPhone: info.phone,
         locationNotes: info.notes,
         locationLat: info.lat,
-		locationLon: info.lon,
-		locationID: ccApp.getLocationID(info)
-	  });
-	});
-	
-	  console.log(ccApp.locationArray);
+        locationLon: info.lon,
+        // each location needs to be sorted into which neighbourhood it falls into; here we call
+        // the getLocationID which returns a neighbourhood ID we can use for sorting the list
+        locationID: ccApp.getLocationID(info)
+      });
+    });
+	    
     // now that we have data we can use it to add the markers to our map
     ccApp.addMarkers();
+
     // and add the list of locations to the sidebar
     ccApp.addLocationList();
   });
 }
 
+// this figures out which neighbourhood a particular location is inside, and returns a corresponding ID
 ccApp.getLocationID = function(location) {
+  // we check if the latitude & longitude of the 'location' object falls within one of six rectangles
+  // those rectangles are defined by the latitude & longitude of its upper left and lower right corners
+  // the rectangles roughly correspond with Toronto's six boroughs
+
+  let locationID = 0;
+
 	if(location.lat < 43.666911 && location.lat > 43.611111){ //toronto centre lat
 		if (location.lon > -79.491209 && location.lon < -79.280279) { //toronto centre lon
-			return 4;
+			locationID = 4;
 		} 
-	} else if (location.lat < 43.815341 && location.lat > 43.673583) { //scarb lat
-		if (location.lon > -79.340697 && location.lon < -79.105042) { //scarb lon
-			return 3;
+	} else if (location.lat < 43.84663 && location.lat > 43.66759) { //scarb lat
+		if (location.lon > -79.29641 && location.lon < -79.10003) { //scarb lon
+			locationID = 3;
+		} 
+	} else if (location.lat < 43.78962 && location.lat > 43.57013) { //etobicoke lat
+		if (location.lon > -79.67475 && location.lon < -79.49519) { //etobicoke lon
+			locationID = 1;
 		}
-	}   
-	// return neighbourhoodID;
+	} else if (location.lat < 43.82979 && location.lat > 43.72468) { //north york lat
+		if (location.lon > -79.50103 && location.lon < -79.2892) { //north york lon
+			locationID = 2;
+		}
+	} else if (location.lat < 43.72394 && location.lat > 43.67901) { //east york lat
+		if (location.lon > -79.39082 && location.lon < -79.28577) { //east york lon
+			locationID = 0;
+		}
+	} else if (location.lat < 43.72195 && location.lat > 43.67727) { //york lat
+		if (location.lon > -79.49828 && location.lon < -79.38773) { //york lon
+			locationID = 5;
+		}
+  };
+  return locationID;
 }
 
 // add a marker to the map for every location
 ccApp.addMarkers = function() {
   ccApp.locationArray.forEach((object) => {
     ccApp.markerArray.push(L.marker([object.locationLat, object.locationLon]));
-  })
+  });
   
   ccApp.markerArray.forEach( (marker) => {
 	marker.addTo(ccApp.myMap);
@@ -131,11 +156,10 @@ ccApp.addPopup = function() {
 			<h5 class="popupAddress">${ccApp.locationArray[i].locationAddress}</h5>`;
 			if (ccApp.locationArray[i].locationPhone){
 				popupString += `<h5 class="popupPhone">${ccApp.locationArray[i].locationPhone}</h5>`
-			}
+			};
 			if (ccApp.locationArray[i].locationNotes) {
 				popupString += `<h5 class="popupNotes">${ccApp.locationArray[i].locationNotes}</h5>`
-			}
-			;
+			};
 		ccApp.markerArray[i].bindPopup(popupString);
 	}
 }
@@ -167,7 +191,7 @@ ccApp.neighbourhoodDropdown = function () {
 		let dropDown = `<option value = ${item.id}> ${item.neighbourhood}</option>`;
     $(`#nabeSelector`).append(dropDown);
   });
-  // now that the dropdown is made, call the event handler
+  // now that the dropdown is made, call the event handler for it
   ccApp.registerEvents();
 }
 
@@ -178,16 +202,19 @@ ccApp.registerEvents = function () {
     // the value is the index of that object in its array
     let userSelection = $(this).val();
     // pass that value to a function that actually changes the map view
-	ccApp.changeMapView(userSelection);
-	
-	ccApp.filterLocationList (userSelection); 
+    ccApp.changeMapView(userSelection);
+    // also pass that value to a function to only display locations in that area in our list
+    ccApp.filterLocationList (userSelection); 
   });
 }
 
 //matches the selected ID to the IDs appended based on lat/long, filters the list below the dropdown menu 
 ccApp.filterLocationList = function(locationID){
-	$(`li`).removeClass(`visuallyHidden`);
+  // show every li in the list
+  $(`li`).removeClass(`visuallyHidden`);
+  // if the chosen menu item is not 'show all'
 	if(locationID != 6){
+    // hide every li in the list except ones whose class match the chosen category
 		$(`li`).not(`.neighbourID${locationID}`).addClass(`visuallyHidden`);
 	} 
 }
