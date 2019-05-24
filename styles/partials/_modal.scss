@@ -1,0 +1,22 @@
+.mapArea{
+    position: relative;
+    z-index: 30;
+}
+
+.modal-open{
+    align-items: center;
+    background-color: rgba(64, 163, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 40;
+}
+
+.modal{
+    background-color: rgb(255, 255, 255);
+}
+
+.close-modal{
+    position: relative;
+    top: 10px; right: -95%;
+    }

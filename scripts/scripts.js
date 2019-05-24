@@ -45,6 +45,7 @@ ccApp.neighbourhoodArray =[
 	}
 ];
 
+ccApp.modal = document.getElementById('modal1');
 ccApp.locationArray = [];
 ccApp.markerArray= [];
 // makes a new map object, centred on Metro Hall at zoom level 12
@@ -140,6 +141,7 @@ ccApp.getLocationID = function(location) {
   return locationID;
 }
 
+
 // add a marker to the map for every location
 ccApp.addMarkers = function() {
   ccApp.locationArray.forEach((object) => {
@@ -218,6 +220,7 @@ ccApp.registerEvents = function () {
     let userSelection = $(this).val();
       // if the user has chosen something other than the "please make a selection" empty default option
       if (userSelection !== "") {
+      
         // pass that value to a function that actually changes the map view
         ccApp.changeMapView(userSelection);
         // also pass that value to a function to only display locations in that area in our list
@@ -225,6 +228,8 @@ ccApp.registerEvents = function () {
       }
   });
 }
+
+
 
 //matches the selected ID to the IDs appended based on lat/long, filters the list below the dropdown menu 
 ccApp.filterLocationList = function(locationID){
@@ -236,6 +241,7 @@ ccApp.filterLocationList = function(locationID){
 		$(`li`).not(`.neighbourID${locationID}`).addClass(`visuallyHidden`);
 	} 
 }
+
 
 
 // function to change where the map is centred
@@ -266,10 +272,26 @@ ccApp.getWeather = function () {
 	})
 }
 
-	
+ccApp.modalOptions = function(){
+  window.addEventListener("click", function () {
+    if (event.target === ccApp.modal) {
+      $(`.modal-open`).addClass(`visuallyHidden`);
+    }
+  })
+  $(`.close-modal`).on(`click`, function () {
+    $(`.modal-open`).addClass(`visuallyHidden`);
+  })
+  $(`.help`).on(`click`, function () {
+    $(`.modal-open`).removeClass(`visuallyHidden`);
+  })
+}
+
+
+
 // once the document is ready, call the init functions to start the app
 $(document).ready(function () {
   ccApp.initMap();
   ccApp.neighbourhoodDropdown();
-	ccApp.getWeather();
+  ccApp.getWeather();
+  ccApp.modalOptions();
 });

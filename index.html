@@ -7,14 +7,22 @@
   <title>Cooling Centre Finder</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-	crossorigin="" />
+  crossorigin="" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
   <header>
-	<h1>App title</h1>
-	<h2 class="currentTemp"></h2>
+  <h1>App title</h1>
+  <div class="tempDiv">
+      <h2 class="currentTemp"></h2>
+  </div>
+  <div class="help-button">
+    <i class="far fa-question-circle help" aria-hidden="true"></i>
+    <label for="help" class="visuallyHidden">Click here for help</label>
+  </div>
   </header>
 
   <main>
@@ -22,7 +30,17 @@
       <div id="mapid" class="mapArea">
         <!-- Map gets inserted here -->
       </div>
-  
+      
+  <div class="modal-open" id="modal1">
+    <div class="modal">
+      <i class="fas fa-times close-modal" aria-hidden="true"></i>
+      <h2 class="modal-title"> </h2>
+      <h3 class="modal-info">Find the nearest cooling centre during a Toronto heatwave</h3>
+      <p class="modal-p">For more information, check out the City of Toronto’s <a
+          href="https://www.toronto.ca/community-people/health-wellness-care/health-programs-advice/hot-weather/hot-weather-response">hot
+          weather response page</a>.</p>
+    </div>
+  </div>
       <div id="contentArea" class="contentArea">
         <label for="nabeSelector">Choose a neighbourhood:</label>
         <select name="nabeSelector" id="nabeSelector">
@@ -34,6 +52,7 @@
         </ul>
       </div>
     </div>
+
   </main>
 
     <script src='https://code.jquery.com/jquery-3.2.1.min.js'

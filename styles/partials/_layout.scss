@@ -2,7 +2,6 @@ header {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  text-align: center;
   padding: .5rem;
   height: 10vh;
 }
@@ -25,6 +24,11 @@ header {
   flex-basis: 30%;
   height: 90vh;
   overflow: scroll;
+  padding: 0 1.8rem;
+}
+
+.tempDiv {
+  flex-basis: 30%;
   padding: 0 1.8rem;
 }
 
