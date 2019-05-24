@@ -251,7 +251,9 @@ ccApp.getWeather = function () {
 		dataType: `json`,
 		method: `GET`
 	}).then((weather) => {
-		console.log(weather.currently.apparentTemperature);
+		let currentTemp = `Current temperature: <span>${weather.currently.apparentTemperature} &deg; C</span>`;
+		$('.currentTemp').append(currentTemp);
+		console.log(currentTemp);
 	})
 }
 
