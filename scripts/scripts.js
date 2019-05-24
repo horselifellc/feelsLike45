@@ -186,6 +186,15 @@ ccApp.addLocationList = function() {
     // append that code to our page in the neighbourhood list
     $('#locationList').append(locationString);
   });
+
+    $('.sidebarHeader').on('click', function () {
+
+    event.preventDefault();
+    let targetLat = $(this).attr('data-lat');
+    let targetLon = $(this).attr('data-lon');
+    const latlng = L.latLng(targetLat, targetLon);
+    ccApp.myMap.flyTo(latlng, 15);
+  });
 }
 
 //Selects from the neighbourhood array, eventually will connect to lat/long properties 
@@ -214,18 +223,6 @@ ccApp.registerEvents = function () {
         // also pass that value to a function to only display locations in that area in our list
         ccApp.filterLocationList (userSelection); 
       }
-  });
-
-  $('.sidebarHeader').on('click', function () {
-
-    // event.preventDefault();
-    // let targetLat = $(this).attr('data-lat');
-    // let targetLon = $(this).attr('data-lon');
-
-    console.log ("hello");
-
-    // const latlng = L.latLng(targetLat, targetLon);
-    // ccApp.myMap.flyTo(latlng, 11);
   });
 }
 
