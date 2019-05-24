@@ -223,7 +223,11 @@ header {
   z-index: 40; }
 
 .modal {
-  background-color: white; }
+  background-color: white;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 4px rgba(17, 17, 17, 0.4);
+  box-shadow: 4px 4px 4px rgba(17, 17, 17, 0.4);
+  padding: 1.5rem 2rem; }
 
 .close-modal {
   position: relative;
