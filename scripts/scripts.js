@@ -160,7 +160,7 @@ ccApp.addPopup = function() {
 			`<h4 class="popupName">${ccApp.locationArray[i].locationName}</h4> 
 			<h5 class="popupAddress">${ccApp.locationArray[i].locationAddress}</h5>`;
 			if (ccApp.locationArray[i].locationPhone){
-				popupString += `<h5 class="popupPhone">${ccApp.locationArray[i].locationPhone}</h5>`
+				popupString += `<h5 class="popupPhone"><a href="tel:${ccApp.locationArray[i].locationPhone}">${ccApp.locationArray[i].locationPhone}</a></h5>`
 			};
 			if (ccApp.locationArray[i].locationNotes) {
 				popupString += `<h5 class="popupNotes">${ccApp.locationArray[i].locationNotes}</h5>`
@@ -174,10 +174,10 @@ ccApp.addLocationList = function() {
   // for each item in the location array, make a string containing that location's information
   ccApp.locationArray.forEach( (object) => {
 	  let locationString = `<li class="neighbourID${object.locationID}" >`;
-    locationString += `<h3>${object.locationName}</h3>`;
+    locationString += `<h3><a class="sidebarHeader" href="" data-lat="${object.locationLat}" data-lon="${object.locationLon}">${object.locationName}</a></h3>`;
     locationString += `<p>${object.locationAddress}</p>`;
     if (object.locationPhone) {
-      locationString += `<p>${object.locationPhone}</p>`;
+      locationString += `<p><a href="tel:${object.locationPhone}">${object.locationPhone}</a></p>`;
     };
     if (object.locationNotes) {
       locationString += `<p>${object.locationNotes}</p>`;
@@ -201,7 +201,7 @@ ccApp.neighbourhoodDropdown = function () {
   ccApp.registerEvents();
 }
 
-// event handler for neighbourhood drop down
+// event handler for neighbourhood drop down and clickable list elements
 ccApp.registerEvents = function () {
   $('#nabeSelector').on('change', function () {
     // grab the value of the menu that's changed
@@ -214,6 +214,18 @@ ccApp.registerEvents = function () {
         // also pass that value to a function to only display locations in that area in our list
         ccApp.filterLocationList (userSelection); 
       }
+  });
+
+  $('.sidebarHeader').on('click', function () {
+
+    // event.preventDefault();
+    // let targetLat = $(this).attr('data-lat');
+    // let targetLon = $(this).attr('data-lon');
+
+    console.log ("hello");
+
+    // const latlng = L.latLng(targetLat, targetLon);
+    // ccApp.myMap.flyTo(latlng, 11);
   });
 }
 
@@ -238,9 +250,9 @@ ccApp.changeMapView = function (mapFocus) {
   // if the user has selected 'show all', zoom the map out a bit more, otherwise zoom in a bit more
   if (mapFocus == `6`) {
     // call the setView method on our myMap object, pasing it the latitude & longitude and zoom value
-    ccApp.myMap.setView(latlng, 11);
+    ccApp.myMap.flyTo(latlng, 11);
   } else {
-    ccApp.myMap.setView(latlng, 13);
+    ccApp.myMap.flyTo(latlng, 13);
   };
 
 }
