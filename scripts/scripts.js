@@ -36,6 +36,12 @@ ccApp.neighbourhoodArray =[
 		lat: 43.689440,
     lon: -79.476442,
     id: 5
+	},
+	{
+		neighbourhood: "Select All",
+		lat: 43.646006,
+		lon: -79.389362,
+		id: 6
 	}
 ];
 
@@ -55,11 +61,6 @@ ccApp.initMap = function() {
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1IjoiZGVyZWttdXJyIiwiYSI6ImNqdnlsd3UyeTBoOTE0Ym1pcnh1b203M3IifQ.SxW-l7DgfF6E9VZGX8pnvg'
   }).addTo(ccApp.myMap);
-
-	let torontoCorner1 = L.latLng(43.767719, -79.412819);
-	let torontoCorner2 = L.latLng(43.646006, -79.389362);
-	let bounds = L.latLngBounds(torontoCorner1, torontoCorner2);
-
 	 
 
   // call our getData function to make our ajax call
@@ -85,8 +86,10 @@ ccApp.getData = function() {
         locationLat: info.lat,
 		locationLon: info.lon,
 		locationID: ccApp.getLocationID(info)
-      });
-    });
+	  });
+	});
+	
+	  console.log(ccApp.locationArray);
     // now that we have data we can use it to add the markers to our map
     ccApp.addMarkers();
     // and add the list of locations to the sidebar
@@ -97,11 +100,13 @@ ccApp.getData = function() {
 ccApp.getLocationID = function(location) {
 	if(location.lat < 43.666911 && location.lat > 43.611111){ //toronto centre lat
 		if (location.lon > -79.491209 && location.lon < -79.280279) { //toronto centre lon
-			console.log(location.address);
 			return 4;
+		} 
+	} else if (location.lat < 43.815341 && location.lat > 43.673583) { //scarb lat
+		if (location.lon > -79.340697 && location.lon < -79.105042) { //scarb lon
+			return 3;
 		}
 	}   
-
 	// return neighbourhoodID;
 }
 
@@ -139,7 +144,7 @@ ccApp.addPopup = function() {
 ccApp.addLocationList = function() {
   // for each item in the location array, make a string containing that location's information
   ccApp.locationArray.forEach( (object) => {
-    let locationString = `<li>`;
+	  let locationString = `<li class="neighbourID${object.locationID}" >`;
     locationString += `<h3>${object.locationName}</h3>`;
     locationString += `<p>${object.locationAddress}</p>`;
     if (object.locationPhone) {
@@ -173,9 +178,20 @@ ccApp.registerEvents = function () {
     // the value is the index of that object in its array
     let userSelection = $(this).val();
     // pass that value to a function that actually changes the map view
-    ccApp.changeMapView(userSelection);
+	ccApp.changeMapView(userSelection);
+	
+	ccApp.filterLocationList (userSelection); 
   });
 }
+
+//matches the selected ID to the IDs appended based on lat/long, filters the list below the dropdown menu 
+ccApp.filterLocationList = function(locationID){
+	$(`li`).removeClass(`visuallyHidden`);
+	if(locationID != 6){
+		$(`li`).not(`.neighbourID${locationID}`).addClass(`visuallyHidden`);
+	} 
+}
+
 
 // function to change where the map is centred
 ccApp.changeMapView = function (mapFocus) {
@@ -192,5 +208,3 @@ $(document).ready(function () {
   ccApp.initMap();
   ccApp.neighbourhoodDropdown();
 });
-
-// `<option value = ${item.neighbourhood}> ${item.neighbourhood}</option>`;
