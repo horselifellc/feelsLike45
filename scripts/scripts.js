@@ -38,7 +38,7 @@ ccApp.neighbourhoodArray =[
     id: 5
 	},
 	{
-		neighbourhood: "Select All",
+		neighbourhood: "Show All",
 		lat: 43.646006,
 		lon: -79.389362,
 		id: 6
@@ -47,8 +47,8 @@ ccApp.neighbourhoodArray =[
 
 ccApp.locationArray = [];
 ccApp.markerArray= [];
-// makes a new map object, centred on Metro Hall at zoom level 15
-ccApp.myMap = L.map('mapid').setView([43.646029, -79.389133], 15);
+// makes a new map object, centred on Metro Hall at zoom level 12
+ccApp.myMap = L.map('mapid').setView([43.646029, -79.389133], 12);
 
 
 // adds our map to the page
@@ -111,23 +111,28 @@ ccApp.getLocationID = function(location) {
 		if (location.lon > -79.491209 && location.lon < -79.280279) { //toronto centre lon
 			locationID = 4;
 		} 
-	} else if (location.lat < 43.84663 && location.lat > 43.66759) { //scarb lat
+  }; 
+  if (location.lat < 43.84663 && location.lat > 43.66759) { //scarb lat
 		if (location.lon > -79.29641 && location.lon < -79.10003) { //scarb lon
 			locationID = 3;
 		} 
-	} else if (location.lat < 43.78962 && location.lat > 43.57013) { //etobicoke lat
+  }; 
+  if (location.lat < 43.78962 && location.lat > 43.57013) { //etobicoke lat
 		if (location.lon > -79.67475 && location.lon < -79.49519) { //etobicoke lon
 			locationID = 1;
 		}
-	} else if (location.lat < 43.82979 && location.lat > 43.72468) { //north york lat
+  }; 
+  if (location.lat < 43.82979 && location.lat > 43.72468) { //north york lat
 		if (location.lon > -79.50103 && location.lon < -79.2892) { //north york lon
 			locationID = 2;
 		}
-	} else if (location.lat < 43.72394 && location.lat > 43.67901) { //east york lat
+  }; 
+  if (location.lat < 43.72394 && location.lat > 43.67901) { //east york lat
 		if (location.lon > -79.39082 && location.lon < -79.28577) { //east york lon
 			locationID = 0;
 		}
-	} else if (location.lat < 43.72195 && location.lat > 43.67727) { //york lat
+  }; 
+  if (location.lat < 43.72195 && location.lat > 43.67727) { //york lat
 		if (location.lon > -79.49828 && location.lon < -79.38773) { //york lon
 			locationID = 5;
 		}
@@ -191,6 +196,7 @@ ccApp.neighbourhoodDropdown = function () {
 		let dropDown = `<option value = ${item.id}> ${item.neighbourhood}</option>`;
     $(`#nabeSelector`).append(dropDown);
   });
+  $(`option[value=6]`).attr(`selected`, `true`);
   // now that the dropdown is made, call the event handler for it
   ccApp.registerEvents();
 }
@@ -201,10 +207,13 @@ ccApp.registerEvents = function () {
     // grab the value of the menu that's changed
     // the value is the index of that object in its array
     let userSelection = $(this).val();
-    // pass that value to a function that actually changes the map view
-    ccApp.changeMapView(userSelection);
-    // also pass that value to a function to only display locations in that area in our list
-    ccApp.filterLocationList (userSelection); 
+      // if the user has chosen something other than the "please make a selection" empty default option
+      if (userSelection !== "") {
+        // pass that value to a function that actually changes the map view
+        ccApp.changeMapView(userSelection);
+        // also pass that value to a function to only display locations in that area in our list
+        ccApp.filterLocationList (userSelection); 
+      }
   });
 }
 
@@ -225,8 +234,15 @@ ccApp.changeMapView = function (mapFocus) {
   // a new variable to hold the target latitude & longitude
   // that lat & lon are found in our neighbourhood array, using the index passed in from registerEvents()
   const latlng = L.latLng(ccApp.neighbourhoodArray[mapFocus].lat, ccApp.neighbourhoodArray[mapFocus].lon);
-  // call the setView method on our myMap object, using the latitude & longitude and zooming out a bit
-  ccApp.myMap.setView(latlng, 13);
+
+  // if the user has selected 'show all', zoom the map out a bit more, otherwise zoom in a bit more
+  if (mapFocus == `6`) {
+    // call the setView method on our myMap object, pasing it the latitude & longitude and zoom value
+    ccApp.myMap.setView(latlng, 11);
+  } else {
+    ccApp.myMap.setView(latlng, 13);
+  };
+
 }
 
 	
