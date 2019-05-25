@@ -1,5 +1,6 @@
 // namespacing our app; everything lives in the ccApp object
 const ccApp = {};
+
 ccApp.neighbourhoodArray =[
 	{
 		neighbourhood: "East York",
@@ -48,6 +49,7 @@ ccApp.neighbourhoodArray =[
 ccApp.modal = document.getElementById('modal1');
 ccApp.locationArray = [];
 ccApp.markerArray= [];
+
 // makes a new map object, centred on Metro Hall at zoom level 12
 ccApp.myMap = L.map('mapid').setView([43.646029, -79.389133], 12);
 
@@ -62,7 +64,6 @@ ccApp.initMap = function() {
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1IjoiZGVyZWttdXJyIiwiYSI6ImNqdnlsd3UyeTBoOTE0Ym1pcnh1b203M3IifQ.SxW-l7DgfF6E9VZGX8pnvg'
   }).addTo(ccApp.myMap);
-	 
 
   // call our getData function to make our ajax call
   ccApp.getData();
@@ -141,15 +142,17 @@ ccApp.getLocationID = function(location) {
   return locationID;
 }
 
-
 // add a marker to the map for every location
 ccApp.addMarkers = function() {
+  // work our way through our big location array
   ccApp.locationArray.forEach((object) => {
+    // make a new more manageable marker array that, for each location, is a Leaflet.js marker object
     ccApp.markerArray.push(L.marker([object.locationLat, object.locationLon]));
   });
   
+  // for each item in that marker array, add the Leaflet.js marker object to the map
   ccApp.markerArray.forEach( (marker) => {
-	marker.addTo(ccApp.myMap);
+    marker.addTo(ccApp.myMap);
   }); 
   // now that the markers are in place, we call our add popup function
   ccApp.addPopup();
@@ -188,25 +191,34 @@ ccApp.addLocationList = function() {
     // append that code to our page in the neighbourhood list
     $('#locationList').append(locationString);
   });
+  // now that we have the sidebar content added to the DOM, call function to set up its event handlers
+  ccApp.makeSidebarHeadersClickable();
+}
 
-    $('.sidebarHeader').on('click', function () {
-
+// event handler for sidebar content location names
+ccApp.makeSidebarHeadersClickable = function () {
+  // capture the click
+  $('.sidebarHeader').on('click', function () {
+    // prevent default behaviour - we don't want the page to refresh
     event.preventDefault();
+    // set target lat & lon based on the clicked-on element's html data attributes
     let targetLat = $(this).attr('data-lat');
     let targetLon = $(this).attr('data-lon');
+    // put those lat & lon values in a special data object that Leaflet wants
     const latlng = L.latLng(targetLat, targetLon);
+    // call the flyTo method on our map using the lat & long methods to center the map on the clicked-on location
     ccApp.myMap.flyTo(latlng, 15);
   });
 }
 
-//Selects from the neighbourhood array, eventually will connect to lat/long properties 
-// called in document ready 
+// builds our 'select neighbourhood' dropdown menu, using data from neighbourhoodArray - called in document ready 
 ccApp.neighbourhoodDropdown = function () {
 	ccApp.neighbourhoodArray.forEach((item)=>{
-    // each option in the menu has the name of the neighbourhood, and that neighbourhood's ID number (same as the index in its array)
+    // each option in the menu has the name of the neighbourhood, and that neighbourhood's ID number as its value (same as the index in its array)
 		let dropDown = `<option value = ${item.id}> ${item.neighbourhood}</option>`;
     $(`#nabeSelector`).append(dropDown);
   });
+  // assign 'show all', the last item, as the default selection, to match the initial map view
   $(`option[value=6]`).attr(`selected`, `true`);
   // now that the dropdown is made, call the event handler for it
   ccApp.registerEvents();
@@ -220,7 +232,6 @@ ccApp.registerEvents = function () {
     let userSelection = $(this).val();
       // if the user has chosen something other than the "please make a selection" empty default option
       if (userSelection !== "") {
-      
         // pass that value to a function that actually changes the map view
         ccApp.changeMapView(userSelection);
         // also pass that value to a function to only display locations in that area in our list
@@ -257,29 +268,36 @@ ccApp.changeMapView = function (mapFocus) {
   } else {
     ccApp.myMap.flyTo(latlng, 13);
   };
-
 }
 
+// Ajax call to pull the weather information from Dark Sky
 ccApp.getWeather = function () {
 	return $.ajax({
 		url: `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/f5578f7d9772b00d3c30f403b7a68de1/43.646006,-79.389362?units=si&exclude=hourly,daily,alerts,flags`,
 		dataType: `json`,
 		method: `GET`
 	}).then((weather) => {
-		let currentTemp = `Current temperature: <span>${weather.currently.apparentTemperature} &deg; C</span>`;
+    // make a string that has the current conditions in it
+    let currentTemp = `Current temperature: <span>${weather.currently.apparentTemperature} &deg; C</span>`;
+    // append that string to the 'currentTemp' div in the page header
 		$('.currentTemp').append(currentTemp);
 	})
 }
 
+// controls show/hide of the info modal
 ccApp.modalOptions = function(){
+  // if user clicks outside of the modal, hide it
   window.addEventListener("click", function () {
     if (event.target === ccApp.modal) {
       $(`.modal-open`).addClass(`visuallyHidden`);
     }
   })
+  // also if the user clicks the 'close' X button on the modal, close it
   $(`.close-modal`).on(`click`, function () {
     $(`.modal-open`).addClass(`visuallyHidden`);
   })
+
+  // if the user clicks on the '?' icon, bring the modal back
   $(`.help`).on(`click`, function () {
     $(`.modal-open`).removeClass(`visuallyHidden`);
   })
