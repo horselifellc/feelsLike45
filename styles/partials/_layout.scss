@@ -56,7 +56,7 @@ select {
   appearance: none;
   background-color: $bgColor;
   background-image: url("../assets/arrow-down.svg");
-  background-size: 8%;
+  background-size: 1.25rem;
   background-position: 95% center;
   background-repeat: no-repeat;
   border-radius: 4px;
@@ -77,6 +77,9 @@ select {
   }
 }
 
-.nabeSelector {
-  width: 100%;
+.selectionDiv {
+  background-color: #ffffff;
+  position: sticky;
+  top: 0px;
+  padding-bottom: .25rem;
 }
