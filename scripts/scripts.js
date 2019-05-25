@@ -301,6 +301,7 @@ ccApp.modalOptions = function(){
   })
   // also if the user clicks the 'close' X button on the modal, close it
   $(`.close-modal`).on(`click`, function () {
+    event.preventDefault();
     $(`.modal-open`).addClass(`visuallyHidden`);
   })
 
