@@ -11,3 +11,9 @@ $bgColor: #fafafa;
 $torontoBlue: rgba(0, 87, 140, 1);
 $torontoBlueTranslucent: rgba(0, 87, 140, 0.8);
 $accentBlue: rgb(66, 157, 212);
+
+@mixin typeStyles($fontweight){
+    font-weight: $fontweight;
+    margin: 0;
+    padding: 0;
+}

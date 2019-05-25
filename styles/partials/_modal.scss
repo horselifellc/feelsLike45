@@ -20,10 +20,10 @@
 }
 
 .close-modal{
-    position: relative;
-    font-size: 2rem;
-    top: -10px; right: -97%;
     color: $torontoBlue;
+    font-size: 2rem;
+    position: relative;
+    top: -10px; right: -97%;
     &:hover,
     &:focus,
     &:active {
@@ -31,4 +31,22 @@
     }
 }
 
+.help-button{
+    height: 50px;
+    position: absolute; top: 1rem; right: 0.5rem;
+    width: 50px;
+    z-index: 40;
+}
 
+.help {
+    background-color: $bgColor;
+    border-radius: 50%;
+    color: $torontoBlue;  
+    font-size: 2rem;
+    z-index: 40;
+    &:hover,
+    &:focus,
+    &:active {
+        color: $accentBlue;
+    }
+}
