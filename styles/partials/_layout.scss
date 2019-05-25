@@ -39,8 +39,9 @@ header {
 .tempDiv {
   flex-basis: 30%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0 1.8rem;
+  white-space: nowrap;
 }
 
 .help-button{
