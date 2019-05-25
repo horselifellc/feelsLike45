@@ -268,7 +268,6 @@ ccApp.getWeather = function () {
 	}).then((weather) => {
 		let currentTemp = `Current temperature: <span>${weather.currently.apparentTemperature} &deg; C</span>`;
 		$('.currentTemp').append(currentTemp);
-		console.log(currentTemp);
 	})
 }
 

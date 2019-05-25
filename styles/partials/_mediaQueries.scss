@@ -41,10 +41,10 @@
   }
 }
 
-@media (max-width: 480px){
+@media (max-width: 550px){
   header{
     flex-direction: column;
-    height: 7vh;
+    height: auto;
     h1{
       font-size: 1.25rem;
     }
