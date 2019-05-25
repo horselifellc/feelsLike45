@@ -78,10 +78,17 @@ ccApp.getData = function() {
   }).then( (coolingCentres) => { 
     // for each object in our dataset, we pull the relevant parts and make a new clean array
     coolingCentres.forEach( (info) => { 
-
+      let tempName = "";
+      if (info.notes !== null){
+        tempName = info.locationName;   
+      } 
+      else {
+        tempName = info.locationName + " " + info.locationDesc;
+      }
       // each index in the array in an object with the location information
       ccApp.locationArray.push({
-        locationName: info.locationName + " " + info.locationDesc,
+        // locationName: info.locationName + " " + info.locationDesc,
+        locationName: tempName,
         locationAddress: info.address,
         locationPhone: info.phone,
         locationNotes: info.notes,
