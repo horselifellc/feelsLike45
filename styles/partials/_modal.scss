@@ -1,52 +1,52 @@
 .mapArea{
-    position: relative;
-    z-index: 30;
+	position: relative;
+	z-index: 30;
 }
 
 .modal-open{
-    align-items: center;
-    background-color: $torontoBlueTranslucent;
-    display: flex;
-    justify-content: center;
-    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
-    z-index: 40;
+	align-items: center;
+	background-color: $torontoBlueTranslucent;
+	display: flex;
+	justify-content: center;
+	position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+	z-index: 40;
 }
 
 .modal{
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    box-shadow: 4px 4px 4px rgba(17, 17, 17, 0.4);
-    padding: 1.5rem 2rem;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 4px 4px 4px rgba(17, 17, 17, 0.4);
+	padding: 1.5rem 2rem;
 }
 
 .close-modal{
-    color: $torontoBlue;
-    font-size: 2rem;
-    position: relative;
-    top: -10px; right: -97%;
-    &:hover,
-    &:focus,
-    &:active {
-        color: $accentBlue;
-    }
+	color: $torontoBlue;
+	font-size: 2rem;
+	position: relative;
+	top: -10px; right: -97%;
+	&:hover,
+	&:focus,
+	&:active {
+			color: $accentBlue;
+	}
 }
 
 .help-button{
-    height: 50px;
-    position: absolute; top: 1rem; right: 0.5rem;
-    width: 50px;
-    z-index: 40;
+	height: 50px;
+	position: absolute; top: 1rem; right: 0.5rem;
+	width: 50px;
+	z-index: 40;
 }
 
 .help {
-    background-color: $bgColor;
-    border-radius: 50%;
-    color: $torontoBlue;  
-    font-size: 2rem;
-    z-index: 40;
-    &:hover,
-    &:focus,
-    &:active {
-        color: $accentBlue;
-    }
+	background-color: $bgColor;
+	border-radius: 50%;
+	color: $torontoBlue;  
+	font-size: 2rem;
+	z-index: 40;
+	&:hover,
+	&:focus,
+	&:active {
+			color: $accentBlue;
+	}
 }
