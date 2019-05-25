@@ -71,7 +71,7 @@ ccApp.initMap = function() {
 // ajax call to get data
 ccApp.getData = function() {
   return $.ajax({
-    url: `http://app.toronto.ca/opendata//ac_locations/locations.json?v=1.00`,
+    url: `https://app.toronto.ca/opendata//ac_locations/locations.json?v=1.00`,
     dataType: 'json',
     method: 'GET'
   }).then( (coolingCentres) => { 
