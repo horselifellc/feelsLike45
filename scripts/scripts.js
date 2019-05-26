@@ -73,8 +73,8 @@ ccApp.initMap = function() {
 ccApp.getData = function() {
   return $.ajax({
     url: `http://app.toronto.ca/opendata//ac_locations/locations.json?v=1.00`,
-    dataType: 'json',
-    method: 'GET'
+    dataType: `json`,
+    method: `GET`
   }).then( (coolingCentres) => { 
     // for each object in our dataset, we pull the relevant parts and make a new clean array
     coolingCentres.forEach( (info) => { 
@@ -83,11 +83,10 @@ ccApp.getData = function() {
         tempName = info.locationName;   
       } 
       else {
-        tempName = info.locationName + " " + info.locationDesc;
+        tempName = `${info.locationName} ${info.locationDesc}`;
       }
       // each index in the array in an object with the location information
       ccApp.locationArray.push({
-        // locationName: info.locationName + " " + info.locationDesc,
         locationName: tempName,
         locationAddress: info.address,
         locationPhone: info.phone,
@@ -196,7 +195,7 @@ ccApp.addLocationList = function() {
     };
     locationString += `</li>`;
     // append that code to our page in the neighbourhood list
-    $('#locationList').append(locationString);
+    $(`#locationList`).append(locationString);
   });
   // now that we have the sidebar content added to the DOM, call function to set up its event handlers
   ccApp.makeSidebarHeadersClickable();
@@ -205,12 +204,12 @@ ccApp.addLocationList = function() {
 // event handler for sidebar content location names
 ccApp.makeSidebarHeadersClickable = function () {
   // capture the click
-  $('.sidebarHeader').on('click', function () {
+  $(`.sidebarHeader`).on(`click`, function () {
     // prevent default behaviour - we don't want the page to refresh
     event.preventDefault();
     // set target lat & lon based on the clicked-on element's html data attributes
-    let targetLat = $(this).attr('data-lat');
-    let targetLon = $(this).attr('data-lon');
+    let targetLat = $(this).attr(`data-lat`);
+    let targetLon = $(this).attr(`data-lon`);
     // put those lat & lon values in a special data object that Leaflet wants
     const latlng = L.latLng(targetLat, targetLon);
     // call the flyTo method on our map using the lat & long methods to center the map on the clicked-on location
@@ -233,7 +232,7 @@ ccApp.neighbourhoodDropdown = function () {
 
 // event handler for neighbourhood drop down and clickable list elements
 ccApp.registerEvents = function () {
-  $('#nabeSelector').on('change', function () {
+  $(`#nabeSelector`).on(`change`, function () {
     // grab the value of the menu that's changed
     // the value is the index of that object in its array
     let userSelection = $(this).val();
@@ -266,14 +265,14 @@ ccApp.filterLocationList = function(locationID){
 ccApp.changeMapView = function (mapFocus) {
   // a new variable to hold the target latitude & longitude
   // that lat & lon are found in our neighbourhood array, using the index passed in from registerEvents()
-  const latlng = L.latLng(ccApp.neighbourhoodArray[mapFocus].lat, ccApp.neighbourhoodArray[mapFocus].lon);
+  const latLong = L.latLng(ccApp.neighbourhoodArray[mapFocus].lat, ccApp.neighbourhoodArray[mapFocus].lon);
 
   // if the user has selected 'show all', zoom the map out a bit more, otherwise zoom in a bit more
   if (mapFocus == `6`) {
     // call the setView method on our myMap object, pasing it the latitude & longitude and zoom value
-    ccApp.myMap.flyTo(latlng, 11);
+    ccApp.myMap.flyTo(latLong, 11);
   } else {
-    ccApp.myMap.flyTo(latlng, 13);
+    ccApp.myMap.flyTo(latLong, 13);
   };
 }
 
@@ -285,29 +284,29 @@ ccApp.getWeather = function () {
 		method: `GET`
 	}).then((weather) => {
     // make a string that has the current conditions in it
-    let currentTemp = `Current temperature: <span>${weather.currently.apparentTemperature} &deg; C</span>`;
+    let currentTemp = `Current temperature: <span>${weather.currently.apparentTemperature}&deg; C</span>`;
     // append that string to the 'currentTemp' div in the page header
-		$('.currentTemp').append(currentTemp);
+		$(`.currentTemp`).append(currentTemp);
 	})
 }
 
 // controls show/hide of the info modal
 ccApp.modalOptions = function(){
   // if user clicks outside of the modal, hide it
-  window.addEventListener("click", function () {
+  window.addEventListener(`click`, function () {
     if (event.target === ccApp.modal) {
-      $(`.modal-open`).addClass(`visuallyHidden`);
+      $(`.modalOpen`).addClass(`visuallyHidden`);
     }
   })
   // also if the user clicks the 'close' X button on the modal, close it
-  $(`.close-modal`).on(`click`, function () {
+  $(`.closeModal`).on(`click`, function () {
     event.preventDefault();
-    $(`.modal-open`).addClass(`visuallyHidden`);
+    $(`.modalOpen`).addClass(`visuallyHidden`);
   })
 
   // if the user clicks on the '?' icon, bring the modal back
   $(`.help`).on(`click`, function () {
-    $(`.modal-open`).removeClass(`visuallyHidden`);
+    $(`.modalOpen`).removeClass(`visuallyHidden`);
   })
 }
 

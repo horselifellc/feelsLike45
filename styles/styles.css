@@ -297,7 +297,7 @@ select {
   z-index: 30;
 }
 
-.modal-open {
+.modalOpen {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -324,7 +324,7 @@ select {
   padding: 1.5rem 2rem;
 }
 
-.close-modal {
+.closeModal {
   color: #00578c;
   font-size: 2rem;
   position: relative;
@@ -332,11 +332,11 @@ select {
   right: -97%;
 }
 
-.close-modal:hover, .close-modal:focus, .close-modal:active {
+.closeModal:hover, .closeModal:focus, .closeModal:active {
   color: #429dd4;
 }
 
-.help-button {
+.helpButton {
   height: 50px;
   position: absolute;
   top: 1rem;
@@ -364,7 +364,7 @@ body {
 }
 
 h1,
-.modal-title {
+.modalTitle {
   font-weight: 700;
   margin: 0;
   padding: 0;
@@ -424,7 +424,7 @@ a:hover, a:focus, a:active {
   white-space: nowrap;
 }
 
-.modal-credits {
+.modalCredits {
   font-size: 0.9rem;
   margin-top: 40px;
 }
