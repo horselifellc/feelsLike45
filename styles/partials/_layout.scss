@@ -1,11 +1,13 @@
 header {
   align-items: center;
+  background-color: $torontoBlue;
   display: flex;
   height: 10vh;
   justify-content: space-between;
   padding: .5rem;
   .headlineDiv {
     flex-basis: 70%;
+    padding-left: .5rem;
   }
   .tempDiv {
     flex-basis: 30%;
@@ -35,10 +37,10 @@ header {
 }
 
 .contentArea {
+  background-color: $bgColor;
   flex-basis: 30%;
   height: 90vh;
   overflow: scroll;
-  padding: 0 1.8rem;
   label,
   select {
     display: block;
@@ -46,7 +48,7 @@ header {
 }
 
 label{
-  color: $torontoBlue;
+  color: $bgColor;
   font-weight: $fontBold;
 }
 
@@ -67,6 +69,7 @@ select {
 }
 
 .nabeList {
+  padding: 0 1.8rem;
   list-style: none;
   h3{
     margin: 15px 0 0 0;
@@ -78,8 +81,8 @@ select {
 }
 
 .selectionDiv {
-  background-color: #ffffff;
+  background: linear-gradient($torontoBlue 0, $torontoBlue 40%, transparent 98%, transparent 100%);
   position: sticky;
   top: 0px;
-  padding-bottom: .25rem;
+  padding: 0 1.8rem .75rem;
 }

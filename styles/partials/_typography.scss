@@ -9,7 +9,7 @@ h1,
   @include typeStyles($fontBold);
   font-family: 'Shrikhand', cursive;
   font-size: 2.1rem;
-  color: $torontoBlue;
+  color: $bgColor;
   white-space: nowrap;
 }
 
@@ -51,7 +51,7 @@ a {
 }
 
 .currentTemp {
-  color: $accentBlue;
+  color: $bgColor;
   & span {
     font-weight: $fontBold;
     white-space: nowrap;

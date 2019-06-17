@@ -191,6 +191,7 @@ header {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background-color: #00578c;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -204,6 +205,7 @@ header {
 header .headlineDiv {
   -ms-flex-preferred-size: 70%;
       flex-basis: 70%;
+  padding-left: .5rem;
 }
 
 header .tempDiv {
@@ -239,11 +241,11 @@ header .tempDiv {
 }
 
 .contentArea {
+  background-color: #fafafa;
   -ms-flex-preferred-size: 30%;
       flex-basis: 30%;
   height: 90vh;
   overflow: scroll;
-  padding: 0 1.8rem;
 }
 
 .contentArea label,
@@ -252,7 +254,7 @@ header .tempDiv {
 }
 
 label {
-  color: #00578c;
+  color: #fafafa;
   font-weight: 700;
 }
 
@@ -273,6 +275,7 @@ select {
 }
 
 .nabeList {
+  padding: 0 1.8rem;
   list-style: none;
 }
 
@@ -285,11 +288,12 @@ select {
 }
 
 .selectionDiv {
-  background-color: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #00578c), color-stop(40%, #00578c), color-stop(98%, transparent), to(transparent));
+  background: linear-gradient(#00578c 0, #00578c 40%, transparent 98%, transparent 100%);
   position: -webkit-sticky;
   position: sticky;
   top: 0px;
-  padding-bottom: .25rem;
+  padding: 0 1.8rem .75rem;
 }
 
 .mapArea {
@@ -370,7 +374,7 @@ h1,
   padding: 0;
   font-family: 'Shrikhand', cursive;
   font-size: 2.1rem;
-  color: #00578c;
+  color: #fafafa;
   white-space: nowrap;
 }
 
@@ -416,7 +420,7 @@ a:hover, a:focus, a:active {
 }
 
 .currentTemp {
-  color: #429dd4;
+  color: #fafafa;
 }
 
 .currentTemp span {
