@@ -77,7 +77,7 @@ ccApp.getData = function() {
     method: `GET`
   }).then( (coolingCentres) => { 
     // for each object in our dataset, we pull the relevant parts and make a new clean array
-    coolingCentres.forEach( (info) => { 
+    coolingCentres.forEach( (info, index) => { 
       let tempName = "";
       if (info.notes !== null){
         tempName = info.locationName;   
@@ -95,7 +95,8 @@ ccApp.getData = function() {
         locationLon: info.lon,
         // each location needs to be sorted into which neighbourhood it falls into; here we call
         // the getLocationID which returns a neighbourhood ID we can use for sorting the list
-        locationID: ccApp.getLocationID(info)
+        locationID: ccApp.getLocationID(info),
+        locationIndex: index,
       });
     });
 	    
@@ -185,7 +186,7 @@ ccApp.addLocationList = function() {
   // for each item in the location array, make a string containing that location's information
   ccApp.locationArray.forEach( (object) => {
 	  let locationString = `<li class="neighbourID${object.locationID}" >`;
-    locationString += `<h3><a class="sidebarHeader" href="" data-lat="${object.locationLat}" data-lon="${object.locationLon}">${object.locationName}</a></h3>`;
+    locationString += `<h3><a class="sidebarHeader" href="" data-lat="${object.locationLat}" data-lon="${object.locationLon}" data-popup="${object.locationIndex}">${object.locationName}</a></h3>`;
     locationString += `<p>${object.locationAddress}</p>`;
     if (object.locationPhone) {
       locationString += `<p><a href="tel:${object.locationPhone}">${object.locationPhone}</a></p>`;
@@ -214,6 +215,9 @@ ccApp.makeSidebarHeadersClickable = function () {
     const latlng = L.latLng(targetLat, targetLon);
     // call the flyTo method on our map using the lat & long methods to center the map on the clicked-on location
     ccApp.myMap.flyTo(latlng, 15);
+    // open the popup on the target location so it's obvious what we're focusing on
+    const popupIndex = Number($(this).attr(`data-popup`));
+    ccApp.markerArray[popupIndex].openPopup();
   });
 }
 

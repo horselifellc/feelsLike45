@@ -9,8 +9,12 @@ h1,
   @include typeStyles($fontBold);
   font-family: 'Shrikhand', cursive;
   font-size: 2.1rem;
-  color: $bgColor;
+  color: $torontoBlue;
   white-space: nowrap;
+}
+
+h1 {
+  color: $bgColor;
 }
 
 h2 {
